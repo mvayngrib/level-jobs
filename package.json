@@ -34,9 +34,9 @@
     "level-hooks": "~4.4.4"
   },
   "devDependencies": {
-    "level": "~0.18.0",
-    "tap": "~0.4.4",
+    "async": "~0.2.9",
+    "memdb": "^1.0.1",
     "rimraf": "~2.2.2",
-    "async": "~0.2.9"
+    "tap": "~0.4.4"
   }
 }

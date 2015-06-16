@@ -1,6 +1,5 @@
 var test   = require('tap').test;
-var rimraf = require('rimraf');
-var level  = require('level');
+var level  = require('memdb');
 var async  = require('async');
 var Jobs   = require('../');
 
@@ -8,7 +7,6 @@ var dbPath = __dirname + '/db';
 
 test('infinite concurrency', function(t) {
 
-  rimraf.sync(dbPath);
   var db = level(dbPath);
 
   var max = 10;
@@ -46,7 +44,6 @@ test('infinite concurrency', function(t) {
 
 test('concurrency of 1', function(t) {
 
-  rimraf.sync(dbPath);
   var db = level(dbPath);
 
   var max = 10;
@@ -84,7 +81,6 @@ test('concurrency of 1', function(t) {
 });
 
 test('retries on error', function(t) {
-  rimraf.sync(dbPath);
   var db = level(dbPath);
 
   var max = 10;
@@ -121,7 +117,6 @@ test('retries on error', function(t) {
 });
 
 test('works with no push callback', function(t) {
-  rimraf.sync(dbPath);
   var db = level(dbPath);
   var jobs = Jobs(db, worker);
 
@@ -137,7 +132,6 @@ test('works with no push callback', function(t) {
 });
 
 test('has exponential backoff in case of error', function(t) {
-  rimraf.sync(dbPath);
   var db = level(dbPath);
   var jobs = Jobs(db, worker);
 
@@ -155,7 +149,6 @@ test('has exponential backoff in case of error', function(t) {
 });
 
 test('can delete job', function(t) {
-  rimraf.sync(dbPath);
   var db = level(dbPath);
   var jobs = Jobs(db, worker);
 
@@ -183,7 +176,6 @@ test('can delete job', function(t) {
 });
 
 test('can get read stream', function(t) {
-  rimraf.sync(dbPath);
   var db = level(dbPath);
   var jobs = Jobs(db, worker);
 

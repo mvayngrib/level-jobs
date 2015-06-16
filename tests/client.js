@@ -1,6 +1,5 @@
 var test       = require('tap').test;
-var rimraf     = require('rimraf');
-var level      = require('level');
+var level      = require('memdb');
 var async      = require('async');
 var Jobs       = require('../');
 var ClientJobs = require('../client');
@@ -8,7 +7,6 @@ var ClientJobs = require('../client');
 var dbPath = __dirname + '/db';
 
 test('client', {timeout: 2000}, function(t) {
-  rimraf.sync(dbPath);
   var db = level(dbPath);
 
   var max = 10;
@@ -53,7 +51,6 @@ test('client', {timeout: 2000}, function(t) {
 
 
 test('can delete job', function(t) {
-  rimraf.sync(dbPath);
   var db = level(dbPath);
   var jobs = Jobs(db, worker);
 
