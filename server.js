@@ -57,6 +57,9 @@ function Queue(db, worker, options) {
     maybeFlush(q)
   });
 
+  db.once('closed', function () {
+    q._closed = true
+  })
 
   start(this);
 }
@@ -96,6 +99,8 @@ function flush(q) {
   }
 
   function poke(err, key, work) {
+    if (q._closed) return
+
     q._peeking = false;
     var done = false;
 
